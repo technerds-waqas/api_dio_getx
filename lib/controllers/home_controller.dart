@@ -17,7 +17,7 @@ class HomePageController extends GetxController
     fetchPosts();
   }
 
-  void fetchPosts() async {
+  Future<List<PostModel>> fetchPosts() async {
     try {
       final response = await _postApi.getPosts();
       if (response.statusCode == 200) {
@@ -26,13 +26,16 @@ class HomePageController extends GetxController
           posts.value = jsonRes.map((e) => PostModel.fromJson(e)).toList();
 
           change(posts, status: RxStatus.success());
+          return posts;
         } else {
           change(null, status: RxStatus.error('no post found'));
+          return posts;
         }
       }
     } on DioError catch (e) {
       final ApiException apiException = ApiException.fromDioError(e);
       change(null, status: RxStatus.error(apiException.toString()));
     }
+    return posts;
   }
 }
