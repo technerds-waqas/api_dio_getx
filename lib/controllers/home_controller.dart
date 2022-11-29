@@ -24,8 +24,13 @@ class HomePageController extends GetxController
         final List jsonRes = response.data;
         if (jsonRes.isNotEmpty) {
           posts.value = jsonRes.map((e) => PostModel.fromJson(e)).toList();
+          if (posts.isNotEmpty) {
+            change(posts, status: RxStatus.success());
+            return posts;
+          }
+          change(null,
+              status: RxStatus.error('some issue occuered in the api method'));
 
-          change(posts, status: RxStatus.success());
           return posts;
         } else {
           change(null, status: RxStatus.error('no post found'));

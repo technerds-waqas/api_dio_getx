@@ -1,4 +1,6 @@
+import 'package:api_practice_getx/internet/internet_binding.dart';
 import 'package:api_practice_getx/ui/splash/splash_scren.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -14,6 +16,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       title: 'Flutter Demo',
       defaultTransition: Transition.native,
+      initialBinding: InternetBinding(),
       smartManagement: SmartManagement.full,
       debugShowCheckedModeBanner: false,
       theme: ThemeData.dark(),
